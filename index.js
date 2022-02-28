@@ -1,7 +1,4 @@
 function clickBtn(cssSel) {
-    console.log('btn to click: ' +cssSel);
-    return;
-    
     const btns = document.querySelectorAll(cssSel);
 
     if (!btns || btns.length < 1) {
