@@ -67,3 +67,15 @@ function setDropdownValue(dropdownSelector, value) {
     dropdown.focus();
     setTimeout(() => dropdown.blur(), 100);
 }
+
+/**
+ * @param {string} selector
+ */
+function isElementVisible(selector) {
+    const element = document.querySelector(selector);
+    if (element) {
+        const style = window.getComputedStyle(element);
+        return style && style.display !== 'none' && style.visibility !== 'hidden' && style.opacity !== '0';
+    }
+    return false;
+}
