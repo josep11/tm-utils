@@ -79,3 +79,99 @@ function isElementVisible(selector) {
     }
     return false;
 }
+
+/**
+ * @param {number} min
+ * @param {number} max
+ */
+function getRandBetween(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+
+// Function to select an element by its data-testid attribute
+const selectElementByTestId = (/** @type {string} */ testId) => {
+    const selector = `[data-testid="${testId}"]`;
+    return document.querySelector(selector);
+};
+
+// --------------------------------------------------------
+// -------------- BEGIN NOTIFICATION SECTION --------------
+// --------------------------------------------------------
+function createNotificationSystem() {
+    const notification = document.createElement('div');
+    notification.style.cssText = `
+        position: fixed;
+        top: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        padding: 12px 24px;
+        background-color: #4CAF50;
+        color: white;
+        border-radius: 4px;
+        font-size: 14px;
+        z-index: 10000;
+        opacity: 0;
+        transition: opacity 0.3s ease-in-out;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    `;
+    document.body.appendChild(notification);
+    return notification;
+}
+
+// Funció per mostrar la notificació
+
+/**
+ * @param {string} message
+ */
+function showNotification(message, duration = 3000) {
+    const notification = document.querySelector('.jas-notification-xyz') || (() => {
+        const notif = createNotificationSystem();
+        notif.classList.add('jas-notification-xyz');
+        return notif;
+    })();
+
+    notification.textContent = message;
+    notification.style.opacity = '1';
+
+    setTimeout(() => {
+        notification.style.opacity = '0';
+    }, duration);
+}
+
+// --------------------------------------------------------
+// -------------- END NOTIFICATION SECTION --------------
+// --------------------------------------------------------
+
+/**
+ * @param {string} buttonText
+ */
+function createButton(buttonText) {
+    const button = document.createElement('button');
+    button.innerHTML = buttonText;
+    button.style.cssText = `
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        padding: 10px 20px;
+        background-color: #0066cc;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        z-index: 9999;
+    `;
+    return button;
+}
+
+async function copyToClipboard(text) {
+    try {
+        await navigator.clipboard.writeText(text);
+        showNotification('Text copiat amb èxit!');
+    } catch (err) {
+        console.error('Error al copiar:', err);
+        showNotification('No s\'ha pogut copiar el text');
+    }
+}
