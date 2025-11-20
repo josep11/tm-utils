@@ -175,3 +175,31 @@ async function copyToClipboard(text) {
         showNotification('No s\'ha pogut copiar el text');
     }
 }
+
+function triggerFocus(element) {
+    let eventType = "onfocusin" in element ? "focusin" : "focus";
+    let bubbles = "onfocusin" in element;
+    let event;
+
+    if ("createEvent" in document) {
+        event = document.createEvent("Event");
+        event.initEvent(eventType, bubbles, true);
+    }
+    else if ("Event" in window) {
+        event = new Event(eventType, { bubbles: bubbles, cancelable: true });
+    }
+
+    element.focus();
+    element.dispatchEvent(event);
+}
+
+function focusOnElement(selector) {
+    const el = document.querySelector(selector);
+
+    if (!el) {
+        console.error("element to focus not found");
+        return;
+    }
+
+    triggerFocus(el);
+}
