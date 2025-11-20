@@ -5,7 +5,7 @@ Require it like so from a Tampermonkey script:
 ```js
 // ==UserScript==
 // ...
-// @require      https://cdn.jsdelivr.net/gh/josep11/tm-utils@1.0.3/index.js
+// @require      https://cdn.jsdelivr.net/gh/josep11/tm-utils@1.0.4/index.js
 // ...
 // ==/UserScript==
 ```
