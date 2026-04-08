@@ -203,3 +203,45 @@ function focusOnElement(selector) {
 
     triggerFocus(el);
 }
+
+/**
+ * @param {string} selector - The selector 
+ * @returns {boolean} visible or not
+ */
+function isElementVisible(selector) {
+    const element = document.querySelector(selector);
+    if (element) {
+        const style = window.getComputedStyle(element);
+        return style && style.display !== 'none' && style.visibility !== 'hidden' && style.opacity !== '0';
+    }
+    return false;
+}
+
+/**
+     * Recursively searches for a button element within a parent element's children
+     * @param {HTMLElement} parent - The parent DOM element to search within
+     * @param {?string} text - The exact text content to search for (optional)
+     * @returns {HTMLElement|null} The found button element or null if not found
+     */
+function findButtonRecursively(parent, text = null) {
+    // Base case: if parent is a button, check if it matches
+    if (parent.tagName === 'BUTTON') {
+        if (text === null || parent.textContent.trim() === text) {
+            return parent;
+        }
+    }
+
+    // Recursive case: check all direct children
+    for (let i = 0; i < parent.children.length; i++) {
+        const child = parent.children[i];
+        const result = findButtonRecursively(child, text);
+
+        // If found, return it immediately (bubble up)
+        if (result) {
+            return result;
+        }
+    }
+
+    // Not found in this branch
+    return null;
+}
