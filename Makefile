@@ -34,3 +34,10 @@ posttag:
 tag/delete:
 	git tag -d ${TAG}
 	git push --delete origin ${TAG}
+
+_readme/update-tag:
+	awk '{sub(/tm-utils@1.0.4/,"tm-utils@${TAG}")}1' README.md > temp.txt && mv temp.txt README.md
+
+## Replaces the recommended tm-utils tag on the README.md file
+readme/update-tag:
+	make _readme/update-tag TAG="$$(node -e 'console.log(require("./package").version)')"
