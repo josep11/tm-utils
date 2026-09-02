@@ -13,11 +13,12 @@ function clickBtn(selector) {
 
 /**
  * @param {string} text
+ * @param {string} cssSelector
  */
 function getElementWithText(text, cssSelector = "*") {
     text = text.toLowerCase();
-    const btns = [...document.querySelectorAll(cssSelector)].filter(e => e.innerText.toLowerCase().indexOf(text) != -1);
-    if (btns.length != 1) {
+    const btns = [...document.querySelectorAll(cssSelector)].filter(e => e.innerText.toLowerCase().indexOf(text) !== -1);
+    if (btns.length !== 1) {
         throw new Error(`element with text ${text} was not found (or found multiple times)`);
     }
     return btns[0];
@@ -66,18 +67,6 @@ function setDropdownValue(dropdownSelector, value) {
     // Optional: Focus and blur to simulate user interaction
     dropdown.focus();
     setTimeout(() => dropdown.blur(), 100);
-}
-
-/**
- * @param {string} selector
- */
-function isElementVisible(selector) {
-    const element = document.querySelector(selector);
-    if (element) {
-        const style = window.getComputedStyle(element);
-        return style && style.display !== 'none' && style.visibility !== 'hidden' && style.opacity !== '0';
-    }
-    return false;
 }
 
 /**
