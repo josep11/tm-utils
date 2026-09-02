@@ -26,6 +26,7 @@ function getElementWithText(text, cssSelector = "*") {
 
 /**
  * @param {string} selector
+ * @see dispatchClickEvent if this one does not work
  */
 function clickElement(selector, errorMsg = null) {
     const element = document.querySelector(selector);
@@ -36,6 +37,26 @@ function clickElement(selector, errorMsg = null) {
     }
 
     element.click();
+
+    return true;
+}
+
+/**
+ * @param {string} selector
+ */
+function dispatchClickEvent(selector, errorMsg = null) {
+    const element = document.querySelector(selector);
+
+    if (!element) {
+        console.error(errorMsg || 'Element not found');
+        return false;
+    }
+
+    element.dispatchEvent(new MouseEvent('click', {
+        view: window,
+        bubbles: true,
+        cancelable: true,
+    }));
 
     return true;
 }
